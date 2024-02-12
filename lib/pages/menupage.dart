@@ -1,5 +1,7 @@
+import 'package:blog/Service/blogService.dart';
 import 'package:blog/pages/register.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Menupage extends StatefulWidget {
   const Menupage({super.key});
@@ -9,9 +11,27 @@ class Menupage extends StatefulWidget {
 }
 
 class _MenupageState extends State<Menupage> {
-  String Email="",password="",getEmail="",getPass="";
+  String getEmail="",getPass="";
   TextEditingController email=new TextEditingController();
   TextEditingController pass=new TextEditingController();
+
+  void SendApi()async {
+    getEmail=email.text;
+    getPass=pass.text;
+    final response = await BlogApiService().logInAPi(getEmail, getPass);
+    if (response["status"]=="success") {
+      // String userId=response["userdata"]["_id"].toString();
+      // SharedPreferences preferences=await SharedPreferences.getInstance();
+      // preferences.setString("userId", userId);
+      print("Successfully login");
+    }
+    else if(response["status"]=="Invalid email id"){
+      print("Invalid email id");
+    }
+    else{
+      print("Invalid password");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(
@@ -34,14 +54,7 @@ class _MenupageState extends State<Menupage> {
                   border: OutlineInputBorder()
               ),),
             SizedBox(height: 10,),
-            ElevatedButton(onPressed: (){
-              getEmail=email.text;
-              getPass=pass.text;
-              setState(() {
-                print(getEmail);
-                print(getPass);
-              });
-            }, child: Text("Login")),
+            ElevatedButton(onPressed: SendApi, child: Text("Login")),
             SizedBox(height: 10,),
             ElevatedButton(onPressed: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>Register()));

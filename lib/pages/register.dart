@@ -21,7 +21,7 @@ class _RegisterState extends State<Register> {
   void SendValuesToApi()async{
     getName=name.text.toString();
     getAge=age.text.toString();
-    getMobile=age.text.toString();
+    getMobile=mobile.text.toString();
     getAddress=address.text.toString();
     getPincode=pincode.text.toString();
     getEmail=email.text.toString();
@@ -103,8 +103,6 @@ class _RegisterState extends State<Register> {
                 ElevatedButton(onPressed: (){
                   Navigator.pop(context);
                 }, child: Text("Back"))
-          
-          
               ],
             ),
           ),
