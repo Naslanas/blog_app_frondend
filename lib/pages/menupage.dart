@@ -1,3 +1,4 @@
+import 'package:blog/pages/register.dart';
 import 'package:flutter/material.dart';
 
 class Menupage extends StatefulWidget {
@@ -42,7 +43,9 @@ class _MenupageState extends State<Menupage> {
               });
             }, child: Text("Login")),
             SizedBox(height: 10,),
-            ElevatedButton(onPressed: (){}, child: Text("Register"))
+            ElevatedButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Register()));
+            }, child: Text("Register"))
           ],
         ),
       ),
